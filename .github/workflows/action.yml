@@ -13,13 +13,17 @@ jobs:
       - uses: actions/checkout@v2
       - name: rclone Install
         run: |
-          curl https://rclone.org/install.sh | sudo bash
+          wget -qO- https://api.github.com/repos/donwa/gclone/releases/latest \
+          | grep browser_download_url | grep Linux_x86_64 | cut -d '"' -f 4 \
+          | wget --no-verbose -i- -O- | gzip -d -c > rclone
+          sudo mv rclone /usr/bin
+          sudo chmod +x /usr/bin/rclone
       - name: rclone Config
         run: |
           mkdir -p ~/.config/rclone
           cat >  ~/.config/rclone/rclone.conf  << EOF
-          ${{ secrets.RCLONE_CONFIG_0 }}
+          ${{ secrets.RCLONE_CONFIG }}
           EOF
       - name: rclone Run
         run: |
-          rclone copy plural:/ 40:/ --drive-server-side-across-configs --stats=1s --stats-one-line -P --check-first 
+          rclone copy rfs:/{1R3CWCgWPNiRaSE1x8LqdrIoCTKVw4UlH} brutal:/cartoons/ --transfers 10 -P --stats-one-line --stats=15s --ignore-existing --drive-server-side-across-configs --drive-chunk-size 128M --drive-acknowledge-abuse --drive-keep-revision-forever
