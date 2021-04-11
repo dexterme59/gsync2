@@ -26,4 +26,4 @@ jobs:
           EOF
       - name: rclone Run
         run: |
-          rclone copy rfs:/{1R3CWCgWPNiRaSE1x8LqdrIoCTKVw4UlH} brutal:/cartoons/ --transfers 10 -P --stats-one-line --stats=15s --ignore-existing --drive-server-side-across-configs --drive-chunk-size 128M --drive-acknowledge-abuse --drive-keep-revision-forever
+          rclone copy rfs:{1R3CWCgWPNiRaSE1x8LqdrIoCTKVw4UlH} brutal:/cartoons/ --transfers 10 -P --stats-one-line --stats=15s --ignore-existing --drive-server-side-across-configs --drive-chunk-size 128M --drive-acknowledge-abuse --drive-keep-revision-forever
