@@ -1,4 +1,4 @@
-name: pluralsight
+name: course3-onedb
 on:
   schedule:
     - cron: 0 */12 * * *
@@ -8,7 +8,7 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    name: Pluralsight
+    name: courses copy
     steps:
       - uses: actions/checkout@v2
       - name: rclone Install
@@ -26,4 +26,4 @@ jobs:
           EOF
       - name: rclone Run
         run: |
-          rclone copy dexter:{1UPbB4ZSzTpQfHao5o5kq7CYik2NXqWHk} brutal:/"NewCartoon" --transfers 50 -v --stats-one-line --stats=15s --ignore-existing --drive-server-side-across-configs --drive-chunk-size 128M --drive-acknowledge-abuse --drive-keep-revision-forever
+          rclone copy course3:/ onedb:/ --check-first --transfers 50 -v --stats-one-line --stats=15s --ignore-existing --drive-server-side-across-configs --drive-chunk-size 128M --drive-acknowledge-abuse --drive-keep-revision-forever --onedrive-chunk-size 60M --onedrive-no-versions
